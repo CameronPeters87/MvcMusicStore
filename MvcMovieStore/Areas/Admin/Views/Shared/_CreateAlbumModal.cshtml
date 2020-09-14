@@ -1,0 +1,61 @@
+﻿@model MvcMovieStore.Areas.Admin.Models.AlbumModel
+
+<div class="modal fade" id="createAlbum" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header text-center bg-info">
+                <h4 class="modal-title w-100 font-weight-bold">Create Album</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body mx-3">
+
+                @using (Html.BeginForm("Add", "Album", FormMethod.Post,
+                    new { @enctype = "multipart/form-data" }))
+                {
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Title, new
+                       {
+                           htmlAttributes = new { @class = "form-control album-title", @placeholder = "Title" }
+                       })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Price)
+                        @Html.EditorFor(model => model.Price, new
+                       {
+                           htmlAttributes = new { @class = "form-control", @placeholder = "Price: R0.00", @value = "" }
+                       })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DropDownListFor(model => model.GenreId, Model.GenreDropdown, "Select Genre",
+                            new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GenreId, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DropDownListFor(model => model.ArtistId, Model.ArtistDropdown, "Select Artist",
+                            new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ArtistId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <input id="AlbumArtFile" name="AlbumArtFile" type="file" />
+                    </div>
+
+                    <div class="form-group">
+                        <input class="btn btn-success text-center album-submit"
+                               type="submit" value="Create" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

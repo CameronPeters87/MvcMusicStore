@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MvcMovieStore.Models.ViewModels.GenrePartial>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+       href="#" role="button" aria-haspopup="true"
+       aria-expanded="false">Genres</a>
+    <div class="dropdown-menu">
+        @foreach (var genre in Model)
+        {
+            <a class="dropdown-item" href="@genre.Link">@genre.Name</a>
+        }
+    </div>
+</li>

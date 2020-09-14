@@ -1,0 +1,47 @@
+﻿@model MvcMovieStore.Areas.Admin.Models.AlbumModel
+
+@{
+    ViewBag.Title = "Albums";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<button class="btn btn-info my-3" data-toggle="modal" data-target="#createAlbum">
+    Create Album
+</button>
+
+@Html.Partial("_CreateAlbumModal", Model)
+
+<table class="table table-bordered">
+    <thead>
+        <tr class="table-warning text-center">
+            <td>Title</td>
+            <td>Price</td>
+            <td>Artist</td>
+            <td>Genre</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Albums.Any())
+        {
+            foreach (var album in Model.Albums)
+            {
+                <tr data-id="@album.Id">
+                    <td>
+                        <img src="@album.AlbumArtUrl" width="50" height="50" />
+                        @album.Title
+                    </td>
+                    <td>R@(string.Format("{0:0.00}", album.Price))</td>
+                    <td>@album.Artist.Name</td>
+                    <td>@album.Genre.Name</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="2" class="text-center">You do not have any albums</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

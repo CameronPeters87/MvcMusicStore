@@ -1,0 +1,95 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+div.content {
+    padding-top:5rem;
+    padding-bottom:5rem;
+}
+
+.nav-item {
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+}
+
+li.dropdown > div.dropdown-menu {
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    left: -20%;
+}
+
+    li.dropdown > div.dropdown-menu > a.dropdown-item:hover {
+        background-color: #ddd;
+    }
+
+@media (max-width: 575.98px) {
+    li.dropdown > div.dropdown-menu {
+        left: 0;
+    }
+}
+
+@media (max-width: 767.98px) {
+    li.dropdown > div.dropdown-menu {
+        left: 0;
+    }
+}
+
+.card-album {
+    padding: 5px;
+}
+
+.album-container {
+    position: relative;
+}
+
+.card .tag {
+    padding: 1px 6px;
+    right: -10px;
+    color: white;
+    display: inline-block;
+    position: absolute;
+}
+
+.card .genre {
+    background-color: #72C02C;
+    bottom: 5px;
+}
+
+.card .price {
+    background-color: darkorange;
+    top: 5px;
+}
+
+.card-album .img-container {
+    overflow:hidden;
+}
+
+.card-album .card-img {
+    width: 100%;
+    height: auto;
+    transition: all 0.8s ease-in-out 0s;
+}

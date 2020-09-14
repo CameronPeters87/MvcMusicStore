@@ -1,0 +1,33 @@
+﻿@model IEnumerable<MvcMovieStore.DataAccessLayer.Album>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="img-fluid text-center">
+    <img src="~/Content/Theme/Images/home-showcase.png" />
+</div>
+
+<div class="row">
+    @foreach (var album in Model)
+    {
+        ViewBag.Link = "/store/details?id=" + album.Id;
+
+        <div class="col-md-3">
+            <a href="@ViewBag.Link">
+                <div class="card card-album">
+                    <div class="album-container">
+                        <div class="img-container">
+                            <img class="card-img" src="@album.AlbumArtUrl" />
+                        </div>
+                        <span class="tag genre">@album.Genre.Name</span>
+                        <span class="tag price">R@(album.Price)</span>
+                    </div>
+                    <div class="card-title text-center">
+                        <h4 class="font-weight-bold">@album.Title</h4>
+                    </div>
+                    <span class="card-subtitle text-muted">Artist: @album.Artist.Name</span>
+                </div>
+            </a>
+        </div>
+     }
+</div>

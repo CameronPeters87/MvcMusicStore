@@ -1,0 +1,59 @@
+﻿@model MvcMovieStore.Areas.Admin.Models.ArtistModel
+
+@{
+    ViewBag.Title = "Artists";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Create Artist</h5>
+            </div>
+            <div class="card-body card">
+
+                @using (Html.BeginForm("Add", "Artists", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name ..." } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Submit" />
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr class="table-warning text-center">
+                    <td>Artist List</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Artists.Any())
+                {
+                    foreach (var artist in Model.Artists)
+                    {
+                        <tr data-id="@artist.Id">
+                            <td>@artist.Name</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2" class="text-center">You do not have any artists</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

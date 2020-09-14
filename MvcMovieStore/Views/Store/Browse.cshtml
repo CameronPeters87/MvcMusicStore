@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MvcMovieStore.DataAccessLayer.Album>
+
+@{
+    ViewBag.Title = "Browse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center my-5">Browse by @ViewBag.Genre</h2>
+
+<div class="row">
+    @if (!Model.Any())
+    {
+        <h2>There is no @ViewBag.Genre album</h2>
+    }
+    else
+    {
+        foreach (var album in Model)
+        {
+            ViewBag.Link = "/store/details?id=" + album.Id;
+
+            <div class="col-md-3">
+                <a href="@ViewBag.Link">
+                    <div class="card card-album">
+                        <div class="album-container">
+                            <div class="img-container">
+                                <img class="card-img" src="@album.AlbumArtUrl" />
+                            </div>
+                            <span class="tag genre">@album.Genre.Name</span>
+                            <span class="tag price">R@(album.Price)</span>
+                        </div>
+                        <div class="card-title text-center">
+                            <h4 class="font-weight-bold">@album.Title</h4>
+                        </div>
+                        <span class="card-subtitle text-muted">Artist: @album.Artist.Name</span>
+                    </div>
+                </a>
+            </div>
+        }
+
+    }
+</div>
