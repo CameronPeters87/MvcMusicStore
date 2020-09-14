@@ -33,6 +33,15 @@ div.content {
     letter-spacing: 0.1rem;
 }
 
+nav.navbar.navbar-expand-lg.navbar-light.font-weight-bold.py-3 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    border-bottom: 1px solid grey;
+}
+
 li.dropdown > div.dropdown-menu {
     position: absolute;
     background-color: #f9f9f9;
@@ -60,6 +69,7 @@ li.dropdown > div.dropdown-menu {
 
 .card-album {
     padding: 5px;
+    background-color: #fbf9ef;
 }
 
 .album-container {
@@ -76,12 +86,16 @@ li.dropdown > div.dropdown-menu {
 
 .card .genre {
     background-color: #72C02C;
-    bottom: 5px;
+    bottom: 20px;
+    width: 80px;
+    text-align: right;
+    right: -5px;
 }
 
 .card .price {
     background-color: darkorange;
-    top: 5px;
+    top: 10px;
+    right: -5px;
 }
 
 .card-album .img-container {
@@ -93,3 +107,23 @@ li.dropdown > div.dropdown-menu {
     height: auto;
     transition: all 0.8s ease-in-out 0s;
 }
+
+.card-album a h4.font-weight-bold {
+    color: #fcaf21;
+}
+
+.card-album a:hover {
+    text-decoration: none;
+    color: #da8539;
+}
+
+.card-album {
+    border: none;
+    transition: ease-in-out 0.5s;
+}
+
+    .card-album:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px;
+        transition: ease-in-out 0.5s;
+    }

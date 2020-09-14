@@ -19,8 +19,9 @@
             ViewBag.Link = "/store/details?id=" + album.Id;
 
             <div class="col-md-3">
-                <a href="@ViewBag.Link">
-                    <div class="card card-album">
+                <div class="card card-album">
+                    <a href="@ViewBag.Link">
+
                         <div class="album-container">
                             <div class="img-container">
                                 <img class="card-img" src="@album.AlbumArtUrl" />
@@ -31,9 +32,9 @@
                         <div class="card-title text-center">
                             <h4 class="font-weight-bold">@album.Title</h4>
                         </div>
-                        <span class="card-subtitle text-muted">Artist: @album.Artist.Name</span>
-                    </div>
-                </a>
+                    </a>
+
+                </div>
             </div>
         }
 

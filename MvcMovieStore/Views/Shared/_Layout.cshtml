@@ -10,9 +10,9 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top pb-3 pt-3">
-        <a class="navbar-brand" href="#">
+<body style="background-color:#fbf9ef">
+    <nav class="navbar navbar-expand-lg navbar-light font-weight-bold py-3">
+        <a class="navbar-brand" href="/">
             <img src="~/Content/Theme/Images/logo.png" />
             Mvc Music Store
         </a>
@@ -24,23 +24,22 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Store</a>
+                    <a class="nav-link" href="/store">Store</a>
                 </li>
                 
                 @{ Html.RenderAction("GenrePartial", "Home", new { area = "" }); }
 
-                <li class="nav-item right">
+                <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fa fa-shopping-cart"></i>
+                        <span class="cart-items">2</span>
                     </a>
                 </li>
-                <li class="nav-item right">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-
+                
+                @Html.Partial("_LoginPartial")
             </ul>
         </div>
     </nav>
@@ -50,9 +49,9 @@
     </div>
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="py-3 border-top">
         <div class="container">
-            <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2020</p>
+            <p class="m-0 text-center text-dark small">Copyright &copy; Your Website 2020</p>
         </div>
         <!-- /.container -->
     </footer>

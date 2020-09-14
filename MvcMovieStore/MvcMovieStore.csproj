@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Extensions\AlbumExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -194,6 +195,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\GenreRepository.cs" />
+    <Compile Include="Repositories\ShoppingCartRepository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -377,10 +379,13 @@
     <Content Include="Views\Shared\_GenresDropdownPartial.cshtml" />
     <Content Include="Views\Shared\_AlbumCardPartial.cshtml" />
     <Content Include="Views\Store\Browse.cshtml" />
+    <Content Include="Views\Store\Details.cshtml" />
+    <Content Include="Views\Store\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AlbumArt\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ShoppingCart\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

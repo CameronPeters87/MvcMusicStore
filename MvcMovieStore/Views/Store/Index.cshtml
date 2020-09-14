@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<MvcMovieStore.DataAccessLayer.Album>
-@{
-    ViewBag.Title = "Home Page";
-}
 
-<div class="img-fluid text-center">
-    <img src="~/Content/Theme/Images/home-showcase.png" />
-</div>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <div class="row">
     @foreach (var album in Model)
@@ -30,5 +28,7 @@
 
             </div>
         </div>
+
     }
+
 </div>

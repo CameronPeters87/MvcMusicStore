@@ -11,7 +11,8 @@ namespace MvcMovieStore.Controllers
         // GET: /Store/
         public ActionResult Index()
         {
-            return View();
+            var model = unitOfWork.AlbumRepository.Get();
+            return View(model);
         }
         //
         // GET: /Store/Browse
@@ -27,8 +28,11 @@ namespace MvcMovieStore.Controllers
         // GET: /Store/Details
         public ActionResult Details(int id)
         {
+            var model = unitOfWork.AlbumRepository.GetByID(id);
 
-            return View();
+            ViewBag.SimilarAlbums = unitOfWork.AlbumRepository.Get(a => a.Genre.Name == model.Genre.Name).ToList();
+
+            return View(model);
         }
     }
 }

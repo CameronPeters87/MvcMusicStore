@@ -1,0 +1,87 @@
+﻿@model MvcMovieStore.DataAccessLayer.Album
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="img-fluid text-center">
+            <img src="@Model.AlbumArtUrl" width="225" height="175" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div>
+            <h3>@Model.Title</h3>
+        </div>
+        <div>
+            <dl>
+                <dt class="text-muted">Genre: @Model.Genre.Name</dt>
+                <dt class="text-muted">Artist: @Model.Artist.Name</dt>
+                <dt class="text-muted">Price: R@(Model.Price)</dt>
+            </dl>
+            <button data-id="@Model.Id" class="btn btn-warning btn-cart text-dark font-weight-bold">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<h3 class="text-center py-5">Similar Albums</h3>
+
+<div class="row">
+    @foreach (var album in ViewBag.SimilarAlbums)
+    {
+        if (album.Title == Model.Title)
+        {
+
+        }
+        else
+        {
+            ViewBag.Link = "/store/details?id=" + album.Id;
+            <div class="col-md-3">
+                <div class="card card-album">
+                    <a href="@ViewBag.Link">
+
+                        <div class="album-container">
+                            <div class="img-container">
+                                <img class="card-img" src="@album.AlbumArtUrl" />
+                            </div>
+                            <span class="tag genre">@album.Genre.Name</span>
+                            <span class="tag price">R@(album.Price)</span>
+                        </div>
+                        <div class="card-title text-center">
+                            <h4 class="font-weight-bold">@album.Title</h4>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        }
+    }
+
+</div>
+
+@section scripts {
+    
+    <script>
+        $(function(){
+
+            $('button.btn-cart').click(function (){
+
+                var id = $(this).attr("data-id");
+
+                var url = "/shoppingcart/addtocart";
+
+                $.post(url, {
+                    id:id
+                }, function(data){
+
+                        location.reload();
+                });
+            });
+
+        })
+    </script>
+
+}
