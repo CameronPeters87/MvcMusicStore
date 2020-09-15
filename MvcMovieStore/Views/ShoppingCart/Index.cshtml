@@ -7,30 +7,115 @@
 
 <h3 class="py-3">Cart Summary</h3>
 
-<table class="table">
-    <thead>
-        <tr class="table-warning">
-            <td>Album Name</td>
-            <td>Quantity</td>
-            <td>Price</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.CartItems)
-        {
-            <tr data-id="@item.Id" class="cart-item">
-                <td>@item.Album.Title</td>
-                <td>@item.Count</td>
-                <td>R@(item.Album.Price)</td>
+@if (!Model.CartItems.Any())
+{
+    <p>You do not have any products in the cart</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr class="table-warning">
+                <td>Album Name</td>
+                <td>Quantity</td>
+                <td class="text-center">Price</td>
+                <td></td>
             </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="2"></td>
-            <td class="font-weight-bold">Total: R@(Model.CartTotal)</td>
-        </tr>
-    </tfoot>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr id="id_@item.Id" data-id="@item.Id" class="cart-item">
+                    <td>@item.Album.Title</td>
+                    <td width="20">
+                        @Html.EditorFor(model => item.Count, new
+                        {
+                            htmlAttributes = new { @class = "form-control qty", @data_id = item.AlbumId }
+                        })
+                    </td>
+                    <td class="text-center">R@(item.Album.Price)</td>
+                    <td>
+                        <button class="btn btn-danger btn-remove" data-id="@item.Id">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"></td>
+                <td class="font-weight-bold text-center totalprice">Total: R@(Model.CartTotal)</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
 
-<button class="btn btn-info pull-right">Checkout</button>
+    <a href="/checkout" class="btn btn-info pull-right checkout-btn">Checkout</a>
+
+}
+
+
+@section scripts {
+
+    <script>
+
+        $(function () {
+
+            // Editing Quantity
+            $('input.qty').blur(function () {
+
+                var qty = $(this).val();
+                var id = $(this).attr("data-id");
+
+                if (qty < 1) {
+                    $(this).focus().val(1);
+                    return false;
+                }
+
+                $.post('/shoppingcart/UpdateQuantity',
+                    {
+                        id: id,
+                        qty: qty
+                    }, function (data) {
+                        $('td.totalprice').html("Total: R" + data);
+                        $('button.checkout-btn').removeAttr("disabled", "disabled");
+                    });
+            });
+
+            $('input.qty').focus(function () {
+
+                $('button.checkout-btn').attr("disabled", "disabled");
+
+            });
+
+            $('input.qty').keypress(function (e) {
+                var key = e.which;
+                if (key == 13)  // the enter key code
+                {
+                    $('input.qty').blur();
+                    return false;
+                }
+            });
+
+            // Removing Item
+            $('button.btn-remove').click(function () {
+
+                var id = $(this).attr("data-id");
+
+                $.post('/shoppingcart/RemoveItem',
+                    {
+                        id: id
+                    }, function (data) {
+                        $('td.totalprice').html("Total: R" + data);
+                        $('tr#id_' + id).fadeOut("slow");
+                    });
+
+            });
+        })
+
+
+    </script>
+
+
+}

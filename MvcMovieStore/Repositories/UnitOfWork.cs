@@ -10,6 +10,7 @@ namespace MvcMovieStore.Repositories
         private GenericRepository<Artist> artistRepository;
         private GenericRepository<Album> albumRepository;
         private GenericRepository<Genre> genreRepository;
+        private GenericRepository<Order> orderRepository;
 
         public GenericRepository<Genre> GenreRepository
         {
@@ -21,6 +22,18 @@ namespace MvcMovieStore.Repositories
                     this.genreRepository = new GenericRepository<Genre>(context);
                 }
                 return genreRepository;
+            }
+        }
+        public GenericRepository<Order> OrderRepository
+        {
+            get
+            {
+
+                if (this.orderRepository == null)
+                {
+                    this.orderRepository = new GenericRepository<Order>(context);
+                }
+                return orderRepository;
             }
         }
 

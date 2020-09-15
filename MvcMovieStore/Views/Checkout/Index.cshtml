@@ -1,0 +1,85 @@
+﻿@model MvcMovieStore.Models.ViewModels.CheckoutModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">Checkout</h2>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <h4>Shipping Details</h4>
+
+        <div class="shipping">
+            <div class="form-group">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "First Name" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @placeholder = "City" } })
+                @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", @placeholder = "Country" } })
+                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control code", @placeholder = "Postal Code" } })
+                @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Phone" } })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+        <h4 class="mb-2">Order Summary</h4>
+
+        <table class="table">
+            <thead>
+                <tr class="table-warning">
+                    <td>Album Name</td>
+                    <td>Quantity</td>
+                    <td class="text-center">Price</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr id="id_@item.Id" data-id="@item.Id" class="cart-item">
+                        <td>@item.Album.Title</td>
+                        <td>
+                            @item.Count
+                        </td>
+                        <td class="text-center">R@(item.Album.Price)</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td class="font-weight-bold text-center totalprice">Total: R@(Model.CartTotal)</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <button class="btn btn-success px-4 py-2 text-center">
+            <i class="fa fa-address-card"></i>
+            Pay
+        </button>
+
+    </div>
+</div>

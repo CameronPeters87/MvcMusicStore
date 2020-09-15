@@ -59,6 +59,19 @@ namespace MvcMovieStore.Repositories
             db.SaveChanges();
         }
 
+        public void UpdateCart(Album album, int quantity)
+        {
+            // Get the matching cart and album instances
+            var cartItem = db.Carts.FirstOrDefault(
+                c => c.CartId == ShoppingCartId
+                && c.AlbumId == album.Id);
+
+            cartItem.Count = quantity;
+            db.Entry(cartItem).State = System.Data.Entity.EntityState.Modified;
+
+            db.SaveChanges();
+        }
+
         public int CreateOrder(Order order)
         {
             decimal orderTotal = 0;
@@ -172,32 +185,17 @@ namespace MvcMovieStore.Repositories
             db.SaveChanges();
         }
 
-        public int RemoveFromCart(int id)
+        public void RemoveFromCart(int id)
         {
             // Get the cart
             var cartItem = db.Carts.Single(
                 cart => cart.CartId == ShoppingCartId
                 && cart.Id == id);
 
-            int itemCount = 0;
+            db.Carts.Remove(cartItem);
 
-            if (cartItem != null)
-            {
-                if (cartItem.Count > 1)
-                {
-                    cartItem.Count--;
-                    itemCount = cartItem.Count;
-                }
-                else
-                {
-                    db.Carts.Remove(cartItem);
-                }
-
-                // Save changes
-                db.SaveChanges();
-            }
-
-            return itemCount;
+            // Save changes
+            db.SaveChanges();
         }
     }
 }

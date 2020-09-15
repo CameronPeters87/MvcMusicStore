@@ -30,6 +30,39 @@ namespace MvcMovieStore.Controllers
             TempData["AddToCart"] = string.Format("You added {0} of {1} to your cart", qty, unitOfWork.AlbumRepository.GetByID(id).Title);
         }
 
+        [HttpPost]
+        public decimal UpdateQuantity(int id, int qty)
+        {
+            var cart = ShoppingCartRepository.GetCart(this.HttpContext);
+
+            cart.UpdateCart(unitOfWork.AlbumRepository.GetByID(id), qty);
+
+            var model = new ShoppingCartViewModel
+            {
+                CartItems = cart.GetCartItems(),
+                CartTotal = cart.GetTotal()
+            };
+
+            return model.CartTotal;
+        }
+
+        [HttpPost]
+        public decimal RemoveItem(int id)
+        {
+
+            var cart = ShoppingCartRepository.GetCart(this.HttpContext);
+
+            cart.RemoveFromCart(id);
+
+            var model = new ShoppingCartViewModel
+            {
+                CartItems = cart.GetCartItems(),
+                CartTotal = cart.GetTotal()
+            };
+
+            return model.CartTotal;
+        }
+
         public ActionResult CartSummary()
         {
             var cart = ShoppingCartRepository.GetCart(this.HttpContext);

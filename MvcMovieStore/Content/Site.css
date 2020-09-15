@@ -126,3 +126,13 @@ li.dropdown > div.dropdown-menu {
         box-shadow: 0 0 10px;
         transition: ease-in-out 0.5s;
     }
+
+.shipping input {
+    display: inline;
+    width:auto;
+}
+
+.shipping input.code {
+    display: inline;
+    width: 24%;
+}
