@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MvcMovieStore.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
