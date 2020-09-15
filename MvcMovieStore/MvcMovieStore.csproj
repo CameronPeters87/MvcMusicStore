@@ -216,6 +216,7 @@
     <Content Include="Content\Theme\Images\home-showcase.png" />
     <Content Include="Content\Theme\Images\logo.png" />
     <Content Include="Content\Theme\Images\placeholder.gif" />
+    <Content Include="Content\Theme\Images\vinyl_PNG109.png" />
     <Content Include="Content\Theme\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />

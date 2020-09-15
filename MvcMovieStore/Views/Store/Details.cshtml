@@ -118,12 +118,11 @@
             $('button.btn-cart').click(function (){
 
                 var id = $(this).attr("data-id");
-                var qty = $('input').val();
+                var qty = $('input.form-control').val();
 
                 var url = "/shoppingcart/addtocart";
-
                 $.post(url, {
-                    id:id,
+                    id: id,
                     qty: qty
                 }, function(data){
 
