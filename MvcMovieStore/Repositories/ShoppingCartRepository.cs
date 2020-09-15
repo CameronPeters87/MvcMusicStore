@@ -29,7 +29,7 @@ namespace MvcMovieStore.Repositories
             return GetCart(controller.HttpContext);
         }
 
-        public void AddToCart(Album album)
+        public void AddToCart(Album album, int quantity)
         {
             // Get the matching cart and album instances
             var cartItem = db.Carts.FirstOrDefault(
@@ -43,7 +43,7 @@ namespace MvcMovieStore.Repositories
                 {
                     AlbumId = album.Id,
                     CartId = ShoppingCartId,
-                    Count = 1,
+                    Count = quantity,
                     DateCreated = DateTime.Now
                 };
 
@@ -52,7 +52,7 @@ namespace MvcMovieStore.Repositories
             else
             {
                 // If the item does exist in the cart, then add one to the quantity
-                cartItem.Count++;
+                cartItem.Count += quantity;
             }
 
             // Save changes
@@ -141,6 +141,13 @@ namespace MvcMovieStore.Repositories
 
             // Return 0 if all entries are null
             return count ?? 0;
+        }
+
+        public int GetNumberOfCartItems()
+        {
+            var cart = db.Carts.Where(c => c.CartId == ShoppingCartId).ToList();
+
+            return cart.Count;
         }
 
         public decimal GetTotal()

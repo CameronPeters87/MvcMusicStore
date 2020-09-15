@@ -70,6 +70,11 @@ namespace MvcMovieStore.Repositories
             }
             dbSet.Remove(entityToDelete);
         }
+        public virtual void DeleteRange(IEnumerable<TEntity> ListEntitiesToDelete)
+        {
+            dbSet.RemoveRange(ListEntitiesToDelete);
+        }
+
 
         public virtual void Update(TEntity entityToUpdate)
         {

@@ -42,20 +42,19 @@ namespace MvcMovieStore.Areas.Admin.Controllers
 
             #region Upload Album Art
 
-            string albumArtUrl;
+            string albumArtUrl = "/AlbumArt/placeholder.gif";
 
-            if (model.AlbumArtFile.ContentLength > 0)
+            if (model.AlbumArtFile != null)
             {
-                string filename = model.AlbumArtFile.FileName;
-                string path = Server.MapPath("~/AlbumArt");
-                string combined = Path.Combine(path, filename);
-                model.AlbumArtFile.SaveAs(combined);
+                if (model.AlbumArtFile.ContentLength > 0)
+                {
+                    string filename = model.AlbumArtFile.FileName;
+                    string path = Server.MapPath("~/AlbumArt");
+                    string combined = Path.Combine(path, filename);
+                    model.AlbumArtFile.SaveAs(combined);
 
-                albumArtUrl = "/AlbumArt/" + filename;
-            }
-            else
-            {
-                albumArtUrl = "/Content/Theme/Images/placeholder.gif";
+                    albumArtUrl = "/AlbumArt/" + filename;
+                }
             }
             #endregion
 

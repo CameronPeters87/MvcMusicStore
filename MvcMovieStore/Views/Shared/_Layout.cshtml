@@ -29,16 +29,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/store">Store</a>
                 </li>
-                
+
                 @{ Html.RenderAction("GenrePartial", "Home", new { area = "" }); }
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span class="cart-items">2</span>
-                    </a>
-                </li>
-                
+                @{ Html.RenderAction("CartSummary", "ShoppingCart", new { area = "" }); }
+
+
                 @Html.Partial("_LoginPartial")
             </ul>
         </div>

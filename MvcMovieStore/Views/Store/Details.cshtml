@@ -5,6 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if(TempData["AddToCart"] != null)
+{
+    <div class="alert alert-success py-3">
+        @TempData["AddToCart"]
+    </div>
+}
+
 <div class="row">
     <div class="col-md-6">
         <div class="img-fluid text-center">
@@ -22,9 +29,23 @@
                 <dt class="text-muted">Artist: @Model.Artist.Name</dt>
                 <dt class="text-muted">Price: R@(Model.Price)</dt>
             </dl>
-            <button data-id="@Model.Id" class="btn btn-warning btn-cart text-dark font-weight-bold">Add to Cart</button>
-        </div>
+            
+            <div class="mb-5">
+                <div class="input-group mb-3" style="max-width: 220px;">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                    </div>
+                    <input type="text" class="form-control text-center" value="1" placeholder=""
+                           aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                    </div>
+                </div>
+
+                <button data-id="@Model.Id" class="btn btn-warning btn-cart text-dark font-weight-bold">Add to Cart</button>
+            </div>
     </div>
+</div>
 </div>
 
 <h3 class="text-center py-5">Similar Albums</h3>
@@ -67,14 +88,43 @@
     <script>
         $(function(){
 
+            // Quantity
+
+            var sitePlusMinus = function () {
+
+                $('.js-btn-minus').on('click', function (e) {
+                    e.preventDefault();
+                    if ($(this).closest('.input-group').find('.form-control').val() != 0) {
+                        $(this).closest('.input-group')
+                            .find('.form-control')
+                            .val(parseInt($(this)
+                                .closest('.input-group')
+                                .find('.form-control')
+                                .val()) - 1);
+                    } else {
+                        $(this).closest('.input-group').find('.form-control').val(parseInt(0));
+                    }
+                });
+
+                $('.js-btn-plus').on('click', function (e) {
+                    e.preventDefault();
+                    $(this).closest('.input-group').find('.form-control').val(parseInt($(this).closest('.input-group').find('.form-control').val()) + 1);
+                });
+            };
+            sitePlusMinus();
+
+            // Add To Cart
+
             $('button.btn-cart').click(function (){
 
                 var id = $(this).attr("data-id");
+                var qty = $('input').val();
 
                 var url = "/shoppingcart/addtocart";
 
                 $.post(url, {
-                    id:id
+                    id:id,
+                    qty: qty
                 }, function(data){
 
                         location.reload();

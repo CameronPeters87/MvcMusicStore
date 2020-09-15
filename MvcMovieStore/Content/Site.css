@@ -109,11 +109,10 @@ li.dropdown > div.dropdown-menu {
 }
 
 .card-album a h4.font-weight-bold {
-    color: #fcaf21;
+    color: brown;
 }
 
 .card-album a:hover {
-    text-decoration: none;
     color: #da8539;
 }
 

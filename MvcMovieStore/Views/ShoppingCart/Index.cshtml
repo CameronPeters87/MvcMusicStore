@@ -1,0 +1,36 @@
+﻿@model MvcMovieStore.Models.ViewModels.ShoppingCartViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="py-3">Cart Summary</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr class="table-warning">
+            <td>Album Name</td>
+            <td>Quantity</td>
+            <td>Price</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CartItems)
+        {
+            <tr data-id="@item.Id" class="cart-item">
+                <td>@item.Album.Title</td>
+                <td>@item.Count</td>
+                <td>R@(item.Album.Price)</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2"></td>
+            <td class="font-weight-bold">Total: R@(Model.CartTotal)</td>
+        </tr>
+    </tfoot>
+</table>
+
+<button class="btn btn-info pull-right">Checkout</button>

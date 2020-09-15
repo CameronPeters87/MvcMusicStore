@@ -1,5 +1,6 @@
 ﻿using MvcMovieStore.Areas.Admin.Models;
 using MvcMovieStore.DataAccessLayer;
+using MvcMovieStore.Extensions;
 using MvcMovieStore.Interfaces;
 using MvcMovieStore.Models;
 using MvcMovieStore.Repositories;
@@ -12,6 +13,7 @@ namespace MvcMovieStore.Areas.Admin.Controllers
     {
 
         private readonly IGenreRepository genreRepository;
+        private readonly UnitOfWork unitOfWork = new UnitOfWork();
 
         public GenresController()
         {
@@ -48,6 +50,19 @@ namespace MvcMovieStore.Areas.Admin.Controllers
             genreRepository.Save();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public string Remove(int id)
+        {
+            genreRepository.DeleteGenre(id);
+            genreRepository.Save();
+
+            var albums = unitOfWork.AlbumRepository.GetAlbumsByGenreId(id);
+            unitOfWork.AlbumRepository.DeleteRange(albums);
+            unitOfWork.Save();
+
+            return string.Empty;
         }
 
         protected override void Dispose(bool disposing)

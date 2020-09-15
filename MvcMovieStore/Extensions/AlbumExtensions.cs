@@ -15,5 +15,12 @@ namespace MvcMovieStore.Extensions
                 .Take(count)
                 .ToList();
         }
+
+        public static IEnumerable<Album> GetAlbumsByGenreId(this GenericRepository<Album> repository,
+            int genreId)
+        {
+            return repository.Get(r => r.GenreId == genreId)
+                .ToList();
+        }
     }
 }

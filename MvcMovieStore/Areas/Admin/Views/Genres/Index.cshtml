@@ -39,6 +39,7 @@
                 <tr class="table-warning text-center">
                     <td>Name</td>
                     <td>Description</td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
@@ -46,9 +47,14 @@
                 {
                     foreach (var genre in Model.Genres)
                     {
-                        <tr data-id="@genre.Id">
+                        <tr id="id_@genre.Id" data-id="@genre.Id">
                             <td>@genre.Name</td>
                             <td>@genre.Description</td>
+                            <td class="text-center">
+                                <button data-id="@genre.Id" class="btn btn-danger btn-sm btn-delete">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
                         </tr>
                     }
                 }
@@ -63,3 +69,29 @@
         </table>
     </div>
 </div>
+
+@section scripts {
+    
+    <script>
+
+        $(function(){
+
+            $('.btn-delete').click(function() {
+
+                var id = $(this).attr('data-id');
+
+                var url = '/admin/genres/Remove';
+
+                $.post(url,
+                    {
+                        id: id
+                    }, function(data){
+                        $('tr#id_' + id).fadeOut("slow");
+                    })
+            });
+
+        })
+
+    </script>
+
+}
