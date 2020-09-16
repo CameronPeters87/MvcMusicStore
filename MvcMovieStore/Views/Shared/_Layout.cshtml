@@ -22,10 +22,10 @@
 
         <div class="collapse navbar-collapse" id="navbarColor02">
 
-            @using(Html.BeginForm("ViewOrder", "Orders", FormMethod.Get))
+            @using(Html.BeginForm("view-order", "orders", FormMethod.Get))
             {
                 <div class="input-group">
-                    <input type="number" class="form-control" name="orderId" placeholder="Enter Order Number ..." />
+                    <input type="number" class="form-control" name="id" placeholder="Enter Order Number ..." />
                     <div class="input-group-append">
                         <button class="btn btn-info">
                             View

@@ -1,6 +1,7 @@
 ﻿using MvcMovieStore.Interfaces;
 using MvcMovieStore.Models.ViewModels;
 using MvcMovieStore.Repositories;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace MvcMovieStore.Controllers
@@ -19,9 +20,10 @@ namespace MvcMovieStore.Controllers
             var model = new CheckoutModel
             {
                 OrderId = order.GetOrderId(this.HttpContext),
-                OrderDetails = order.GetOrderDetails(order.GetOrderId(this.HttpContext)),
-                CartTotal = cart.GetTotal()
+                OrderDetails = order.GetOrderDetails(order.GetOrderId(this.HttpContext))
             };
+
+            model.CartTotal = model.OrderDetails.Sum(o => o.UnitPrice * o.Quantity);
 
             return View(model);
         }

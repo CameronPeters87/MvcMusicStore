@@ -1,8 +1,77 @@
-﻿
+﻿@model MvcMovieStore.DataAccessLayer.Order
 @{
     ViewBag.Title = "ViewOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>View Order</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    if (!string.IsNullOrEmpty(Model.FirstName))
+    {
+        <h2 class="mb-4">Viewing Order #@(Model.Id)</h2>
 
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="ml-3">
+                    <h4 class="mb-3">Details</h4>
+
+                    <ul>
+                        <li>Name: @Model.FirstName @Model.LastName</li>
+                        <li>Order Date: @Model.OrderDate.ToLongDateString()</li>
+                        <li>Email: @Model.Email</li>
+                        <li>Phone: @Model.Phone</li>
+                    </ul>
+
+                    <h6>Shipping</h6>
+                    <address>
+                        @Model.Address<br>
+                        @Model.City, @Model.Province<br>
+                        @Model.Country<br />
+                        @Model.PostalCode
+                    </address>
+                </div>            </div>
+            <div class="col-md-6">
+                <h4 class="mb-3">Items Purchased</h4>
+                <table class="table">
+                    <thead>
+                        <tr class="table-warning">
+                            <td>Album Name</td>
+                            <td>Quantity</td>
+                            <td class="text-center">Price</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderDetails)
+                        {
+                            <tr class="cart-item">
+                                <td>@item.Album.Title</td>
+                                <td>
+                                    @item.Quantity
+                                </td>
+                                <td class="text-center">R@(item.Album.Price)</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td class="font-weight-bold text-center totalprice">Total: R@(Model.Total)</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <h2>That order does not exist</h2>
+    }
+}
+else
+{
+    <h2>You have to sign in to view the order</h2>
+}
