@@ -397,12 +397,12 @@
     <Content Include="Views\Shared\_CartSummary.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Orders\ViewOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AlbumArt\" />
     <Folder Include="App_Data\" />
     <Folder Include="Services\" />
-    <Folder Include="Views\Orders\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

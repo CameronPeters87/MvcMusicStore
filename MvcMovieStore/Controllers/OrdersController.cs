@@ -9,5 +9,11 @@ namespace MvcMovieStore.Controllers
         {
             return View();
         }
+
+        public ActionResult ViewOrder(int id)
+        {
+
+            return View();
+        }
     }
 }

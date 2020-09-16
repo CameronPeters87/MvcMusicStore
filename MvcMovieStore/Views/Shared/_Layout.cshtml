@@ -22,6 +22,17 @@
 
         <div class="collapse navbar-collapse" id="navbarColor02">
 
+            @using(Html.BeginForm("ViewOrder", "Orders", FormMethod.Get))
+            {
+                <div class="input-group">
+                    <input type="number" class="form-control" name="orderId" placeholder="Enter Order Number ..." />
+                    <div class="input-group-append">
+                        <button class="btn btn-info">
+                            View
+                        </button>
+                    </div>
+                </div>
+            }
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
