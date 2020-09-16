@@ -1,21 +1,13 @@
 ﻿using MvcMovieStore.Interfaces;
 using MvcMovieStore.Models.ViewModels;
 using MvcMovieStore.Repositories;
-using System.Configuration;
 using System.Web.Mvc;
 
 namespace MvcMovieStore.Controllers
 {
     public class CheckoutController : Controller
     {
-        private readonly UnitOfWork unitOfWork = new UnitOfWork();
-
-        private IPayment _payment = new Payment();
         private IOrderRepository order = new OrderRepository();
-
-        // Get Paygate keys from webconfig file 
-        readonly string PayGateID = ConfigurationManager.AppSettings["PAYGATEID"];
-        readonly string PayGateKey = ConfigurationManager.AppSettings["PAYGATEKEY"];
 
         // GET: Checkout
         public ActionResult Index()
@@ -32,6 +24,18 @@ namespace MvcMovieStore.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public string UpdateOrder(ShippingDetails model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return "Failed";
+            }
+            order.UpdateOrder(order.GetOrderId(this.HttpContext), model);
+
+            return "Success";
         }
     }
 }

@@ -12,32 +12,38 @@
         <h4>Shipping Details</h4>
 
         <div class="shipping">
+            @Html.HiddenFor(model => model.OrderId)
             <div class="form-group">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "First Name" } })
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control f_name", @placeholder = "First Name" } })
                 @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name" } })
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control l_name", @placeholder = "Last Name" } })
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address" } })
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control address", @placeholder = "Address" } })
                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @placeholder = "City" } })
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control city", @placeholder = "City" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.EditorFor(model => model.Province, new { htmlAttributes = new { @class = "form-control province", @placeholder = "Province" } })
                 @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", @placeholder = "Country" } })
+                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control country", @placeholder = "Country" } })
                 @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
                 @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control code", @placeholder = "Postal Code" } })
                 @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
 
             </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control email", @placeholder = "Email" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Phone" } })
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control phone", @placeholder = "Phone" } })
                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -81,6 +87,9 @@
             <i class="fa fa-address-card"></i>
             Pay
         </button>
+        <span class="loader d-none">
+            <img src="~/Content/ajax-loader.gif" />
+        </span>
     </div>
 </div>
 
@@ -100,9 +109,62 @@
 
             $('button.pay').click(function () {
 
-                alert("success!");
+                $('span.loader').removeClass("d-none");
 
+                var orderId = $('input#OrderId').val();
+                var fname = $('input.f_name').val();
+                var lname = $('input.l_name').val();
+                var address = $('input.address').val();
+                var city = $('input.city').val();
+                var province = $('input.province').val();
+                var country = $('input.country').val();
+                var code = $('input.code').val();
+                var email = $('input.email').val();
+                var phone = $('input.phone').val();
+
+                $.post('/checkout/UpdateOrder', {
+                    OrderId: orderId,
+                    FirstName: fname,
+                    LastName: lname,
+                    Address: address,
+                    City: city,
+                    Province: province,
+                    PostalCode: code,
+                    Country: country,
+                    Phone: phone,
+                    Email: email
+                }, function (data) {
+                    
+                        if (data == "Success") {
+                            $.get("/pay/getrequest", { orderId: orderId })
+                                .done(data => success(data))
+                                .fail(err => error(err));
+                        }
+                        else {
+                            alert("Failed");
+                            $('span.loader').addClass("d-none");
+                        }
+                    })
             });
+
+
+            function success(data) {
+                if (data.success) {
+                    $("#PAY_REQUEST_ID").val(data.results.PAY_REQUEST_ID);
+                    $("#CHECKSUM").val(data.results.CHECKSUM);
+
+                    document.querySelector("#REDIRECT").click();
+                }
+            }
+
+            function error(data) {
+                console.log("Error");
+                let node = document.createElement("li");
+                node.innerText = data;
+                //To display the result message under the Pay button
+                document.querySelector("#results").appendChild(node);
+                $('span.loader').addClass("d-none");
+            }
 
         });
 

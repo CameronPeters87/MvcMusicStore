@@ -1,4 +1,5 @@
 ﻿using MvcMovieStore.DataAccessLayer;
+using MvcMovieStore.Models.ViewModels;
 using MvcMovieStore.Repositories;
 using System.Collections.Generic;
 using System.Security.Principal;
@@ -14,5 +15,7 @@ namespace MvcMovieStore.Interfaces
         int GetOrderId(HttpContextBase controller);
 
         List<OrderDetail> GetOrderDetails(int orderId);
+
+        void UpdateOrder(int orderId, ShippingDetails model);
     }
 }

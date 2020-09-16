@@ -2,6 +2,7 @@
 using MvcMovieStore.DataAccessLayer;
 using MvcMovieStore.Extensions;
 using MvcMovieStore.Interfaces;
+using MvcMovieStore.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,23 @@ namespace MvcMovieStore.Repositories
             return unitOfWork.OrderDetailRepository.Get(o => o.OrderId == orderId).ToList();
         }
 
+        public void UpdateOrder(int orderId, ShippingDetails model)
+        {
+            var order = unitOfWork.OrderRepository.GetByID(orderId);
 
+            order.FirstName = model.FirstName;
+            order.LastName = model.LastName;
+            order.Address = model.Address;
+            order.City = model.City;
+            order.Country = model.Country;
+            order.Province = model.Province;
+            order.Email = model.Email;
+            order.Phone = model.Phone;
+            order.PostalCode = model.PostalCode;
+
+            unitOfWork.OrderRepository.Update(order);
+
+            unitOfWork.Save();
+        }
     }
 }
