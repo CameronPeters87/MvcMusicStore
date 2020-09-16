@@ -76,10 +76,36 @@
             </tfoot>
         </table>
 
-        <button class="btn btn-success px-4 py-2 text-center">
+        <button class="btn btn-success px-4 py-2 text-center pay"
+                data-orderId="@Model.OrderId">
             <i class="fa fa-address-card"></i>
             Pay
         </button>
-
     </div>
 </div>
+
+<div class="hidden">
+    <form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
+        <input id="PAY_REQUEST_ID" name="PAY_REQUEST_ID" type="hidden" />
+        <input id="CHECKSUM" name="CHECKSUM" type="hidden" />
+        <input id="REDIRECT" type="submit" />
+    </form>
+</div>
+
+@section scripts {
+    
+    <script>
+
+        $(function () {
+
+            $('button.pay').click(function () {
+
+                alert("success!");
+
+            });
+
+        });
+
+    </script>
+    
+}

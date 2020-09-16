@@ -109,6 +109,33 @@ namespace MvcMovieStore.Repositories
             return order.Id;
         }
 
+        public void CreateOrderDetails(Order order)
+        {
+            var cartItems = GetCartItems();
+
+            // Iterate over the items in the cart, adding the order details for each
+            foreach (var item in cartItems)
+            {
+                var orderDetail = new OrderDetail
+                {
+                    AlbumId = item.AlbumId,
+                    OrderId = order.Id,
+                    UnitPrice = item.Album.Price,
+                    Quantity = item.Count,
+                    Order = db.Orders.Find(order.Id),
+                    Album = db.Albums.Find(item.AlbumId)
+                };
+
+                db.OrderDetails.Add(orderDetail);
+
+            }
+            // Save the order
+            db.SaveChanges();
+
+            // Empty the shopping cart
+            EmptyCart();
+        }
+
         public void EmptyCart()
         {
             var cartItems = db.Carts.Where(cart => cart.CartId == ShoppingCartId).ToList();
@@ -142,7 +169,8 @@ namespace MvcMovieStore.Repositories
 
         public List<Cart> GetCartItems()
         {
-            return db.Carts.Where(cart => cart.CartId == ShoppingCartId).ToList();
+            return db.Carts.Where(cart => cart.CartId == ShoppingCartId
+                ).ToList();
         }
 
         public int GetCount()
@@ -158,7 +186,8 @@ namespace MvcMovieStore.Repositories
 
         public int GetNumberOfCartItems()
         {
-            var cart = db.Carts.Where(c => c.CartId == ShoppingCartId).ToList();
+            var cart = db.Carts.Where(c => c.CartId == ShoppingCartId
+                ).ToList();
 
             return cart.Count;
         }
@@ -176,7 +205,8 @@ namespace MvcMovieStore.Repositories
 
         public void MigrateCart(string userName)
         {
-            var shoppingCart = db.Carts.Where(c => c.CartId == ShoppingCartId);
+            var shoppingCart = db.Carts.Where(c => c.CartId == ShoppingCartId
+             );
 
             foreach (Cart item in shoppingCart)
             {

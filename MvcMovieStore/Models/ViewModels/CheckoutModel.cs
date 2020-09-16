@@ -8,7 +8,7 @@ namespace MvcMovieStore.Models.ViewModels
         public List<Cart> CartItems { get; set; }
         public decimal CartTotal { get; set; }
 
-
+        public int OrderId { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

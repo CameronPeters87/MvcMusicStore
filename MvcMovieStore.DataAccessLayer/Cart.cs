@@ -15,5 +15,6 @@ namespace MvcMovieStore.DataAccessLayer
         public System.DateTime DateCreated { get; set; }
 
         public virtual Album Album { get; set; }
+
     }
 }
