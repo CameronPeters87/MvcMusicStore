@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
+using MvcMovieStore.DataAccessLayer;
 using MvcMovieStore.Extensions;
 using MvcMovieStore.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -37,5 +40,12 @@ namespace MvcMovieStore.Repositories
             controller.Session["OrderId"] = lastOrder.Id;
 
         }
+
+        public List<OrderDetail> GetOrderDetails(int orderId)
+        {
+            return unitOfWork.OrderDetailRepository.Get(o => o.OrderId == orderId).ToList();
+        }
+
+
     }
 }

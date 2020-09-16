@@ -56,12 +56,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.CartItems)
+                @foreach (var item in Model.OrderDetails)
                 {
-                    <tr id="id_@item.Id" data-id="@item.Id" class="cart-item">
+                    <tr class="cart-item">
                         <td>@item.Album.Title</td>
                         <td>
-                            @item.Count
+                            @item.Quantity
                         </td>
                         <td class="text-center">R@(item.Album.Price)</td>
                     </tr>
@@ -84,7 +84,7 @@
     </div>
 </div>
 
-<div class="hidden">
+<div class="d-none">
     <form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
         <input id="PAY_REQUEST_ID" name="PAY_REQUEST_ID" type="hidden" />
         <input id="CHECKSUM" name="CHECKSUM" type="hidden" />

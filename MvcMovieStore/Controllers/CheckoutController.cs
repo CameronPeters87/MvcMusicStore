@@ -27,7 +27,7 @@ namespace MvcMovieStore.Controllers
             var model = new CheckoutModel
             {
                 OrderId = order.GetOrderId(this.HttpContext),
-                CartItems = cart.GetCartItems(),
+                OrderDetails = order.GetOrderDetails(order.GetOrderId(this.HttpContext)),
                 CartTotal = cart.GetTotal()
             };
 

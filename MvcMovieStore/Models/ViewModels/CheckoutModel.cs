@@ -5,7 +5,7 @@ namespace MvcMovieStore.Models.ViewModels
 {
     public class CheckoutModel
     {
-        public List<Cart> CartItems { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; }
         public decimal CartTotal { get; set; }
 
         public int OrderId { get; set; }
